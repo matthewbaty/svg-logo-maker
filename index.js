@@ -38,7 +38,11 @@ const questions = inquirer.prompt([
         type: 'list',
         name: 'shape',
         message: 'Please select the shape you would like your logo to be:',
-        choices: ['Triangle', 'Circle', 'Square']
+        choices: [
+            {name: "square", value: "Square"},
+            {name: "circle", value: "Circle"},
+            {name: "triangle", value: "Triangle"},
+        ],
     },
     {
         type: 'input',
