@@ -6,7 +6,7 @@ const { check } = require("yargs");
 
 // number of characters check
 const checkLength = async (input) => {
-    if (input.length > 3 || input.length <1) {
+    if (input.length > 3 || input.length < 1) {
         console.log("Please enter at least 1 and no more than 3 characters!");
     } else {
         return true;
@@ -19,24 +19,38 @@ const questions = inquirer.prompt([
     {
         type: 'input',
         name: 'text',
-        message: 'Please enter the text for your logo (3 Characters):'
+        message: 'Please enter the text for your logo (3 Characters):',
         validate: checkLength,
     },
     {
         type: 'input',
         name: 'textColor',
-        message: 'Please enter the color you would like your text to be:'
+        message: 'Please enter the color you would like your text to be:',
+        validate: function (input) {
+            if (/^#([0-9A-F]{6})$/i.test(input) || /^([a-z]+\s*)+$/i.test(input)) {
+                return true;
+              } else {
+                return 'Please enter a valid color or hex number';
+              }
+        }
     },
     {
         type: 'list',
         name: 'shape',
-        message: 'Please select the shape you would like your logo to be:'
+        message: 'Please select the shape you would like your logo to be:',
         choices: ['Triangle', 'Circle', 'Square']
     },
     {
         type: 'input',
         name: 'shapeColor',
-        message: 'Please enter the color you would like your logo to be:'
+        message: 'Please enter the color you would like your logo to be:',
+        validate: function (input) {
+            if (/^#([0-9A-F]{6})$/i.test(input) || /^([a-z]+\s*)+$/i.test(input)) {
+                return true;
+              } else {
+                return 'Please enter a valid color or hex number';
+              }
+        }
     },    
 ]) .then(response => writeToFile(response));
 
